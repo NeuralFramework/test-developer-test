@@ -1,0 +1,49 @@
+volumes:
+    data-mysql:
+        driver: local
+        name: server-mysql-data
+services:
+    server-node:
+        depends_on:
+            - server-mysql
+        image: node:24.11.0-alpine3.22
+        container_name: app-node
+        command: npm run dev
+        restart: always
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - ./:/home/app
+        working_dir: /home/app
+        links:
+            - server-mysql
+        ports:
+            - 3000:3000
+        expose:
+            - 3000
+    server-phpmyadmin:
+        depends_on:
+            - server-mysql
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+          PMA_HOST: "${DB_HOST}"
+          PMA_PORT: 3306
+          PMA_USER: "${DB_USER}"
+          PMA_PASSWORD: "${DB_PASS}"
+        ports:
+            -  80:80
+        expose:
+            - 80
+    server-mysql:
+        image: mysql:5.7.33
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - ./mysql.conf:/etc/mysql/mysql.conf.d/mysqld.cnf:ro
+            - data-mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: "${DB_NAME}"
+            MYSQL_ROOT_PASSWORD: "${DB_PASS}"
