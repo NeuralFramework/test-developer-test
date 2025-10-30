@@ -1,0 +1,16 @@
+{
+  "name": "Test Developer",
+  "version": "0.0.1",
+  "description": "API REST para gestión de inventario con roles",
+  "title": "API de Inventarios",
+  "url": "http://localhost:3000/api",
+  "sampleUrl": "http://localhost:3000/api",
+  "header": {
+    "title": "Introducción",
+    "content": "<p>API con JWT.</p>"
+  },
+  "footer": {
+    "title": "Notas",
+    "content": "<p>Usar <code>Bearer {token}</code> en Authorization.</p>"
+  }
+}
