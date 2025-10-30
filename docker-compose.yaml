@@ -10,6 +10,7 @@ services:
         container_name: app-node
         command: npm run dev
         restart: always
+        user: node
         volumes:
             - /etc/localtime:/etc/localtime:ro
             - ./:/home/app
