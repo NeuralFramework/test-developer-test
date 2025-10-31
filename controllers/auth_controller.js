@@ -13,14 +13,23 @@ const { usuario } = require('../models');
 const { errorLogger } = require('../utils/logger');
 
 /**
- * Login inicial
+ * @api {post} /api/auth/login Iniciar sesión
+ * @apiName LoginUsuario
+ * @apiGroup Autenticación
+ * @apiDescription Autentica a un usuario y devuelve un JWT.
  *
- * @api {post} /api/auth/login
- * @apiName Login
- * @apiGroup Auth
- * @apiParam {String} email
- * @apiParam {String} password
- * @apiSuccess {String} token JWT
+ * @apiBody {String} email Correo electrónico del usuario.
+ * @apiBody {String} password Contraseña (mínimo 5 caracteres).
+ *
+ * @apiSuccess {String} token Token JWT para autenticación.
+ * @apiSuccessExample {json} Éxito
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *    }
+ *
+ * @apiError (401) CredencialesInválidas Email o contraseña incorrectos.
+ * @apiError (500) ErrorServidor Error interno al procesar la solicitud.
  */
 exports.login = async (req, res) => {
     try {
@@ -42,9 +51,29 @@ exports.login = async (req, res) => {
 };
 
 /**
- * Registro de pruebas
+ * @api {post} /api/auth/register Registrar usuario
+ * @apiName RegistrarUsuario
+ * @apiGroup Autenticación
+ * @apiDescription Crea un nuevo usuario (solo para pruebas o admin).
  *
- * @api {post} /api/auth/register
+ * @apiBody {String} email Correo electrónico único.
+ * @apiBody {String} password Contraseña (mínimo 5 caracteres).
+ * @apiBody {String} nombre Nombre completo.
+ * @apiBody {String="Administrador","Cliente"} rol Rol del usuario.
+ *
+ * @apiSuccess {Number} id ID del usuario creado.
+ * @apiSuccess {String} email Email del usuario.
+ * @apiSuccess {String} rol Rol asignado.
+ *
+ * @apiSuccessExample {json} Éxito
+ *    HTTP/1.1 201 Created
+ *    {
+ *      "id": 3,
+ *      "email": "nuevo@ejemplo.com",
+ *      "rol": "Cliente"
+ *    }
+ *
+ * @apiError (400) ValidacionFallida Datos inválidos.
  */
 exports.register = async (req, res) => {
     try {

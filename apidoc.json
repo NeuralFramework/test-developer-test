@@ -12,5 +12,11 @@
   "footer": {
     "title": "Notas",
     "content": "<p>Usar <code>Bearer {token}</code> en Authorization.</p>"
-  }
+  },
+  "order": [
+    "Autenticación",
+    "Usuarios",
+    "Productos",
+    "Compras"
+  ]
 }
