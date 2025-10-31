@@ -1,8 +1,8 @@
 {
   "name": "Test Developer",
   "version": "0.0.1",
-  "description": "API REST para gestión de inventario con roles",
-  "title": "API de Inventarios",
+  "description": "API REST para gestión de inventario con roles y compras",
+  "title": "API de Inventarios y Compras",
   "url": "http://localhost:3000/api",
   "sampleUrl": "http://localhost:3000/api",
   "header": {
